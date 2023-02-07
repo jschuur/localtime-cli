@@ -1,0 +1,69 @@
+{
+  "name": "localtime-cli",
+  "version": "0.1.0",
+  "description": "Command-line tool to look up the local time (and weather) for time zones, countries and cities with auto-completion.",
+  "main": "dist/localtime.js",
+  "type": "module",
+  "bin": {
+    "localtime": "dist/localtime.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "localtime": "tsx ./src/localtime.ts",
+    "prepublishOnly": "pnpm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "localtime.gif"
+  ],
+  "keywords": [
+    "time",
+    "localtime",
+    "timezones",
+    "cli",
+    "console",
+    "terminal",
+    "weather",
+    "openweather",
+    "openweather-map"
+  ],
+  "author": "Joost Schuur <jschuur@jschuur.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@vvo/tzdb": "^6.93.0",
+    "city-timezones": "^1.2.1",
+    "commander": "^10.0.0",
+    "countries-and-timezones": "^3.4.1",
+    "dotenv": "^16.0.3",
+    "inquirer": "^9.1.4",
+    "inquirer-autocomplete-prompt": "^3.0.0",
+    "jsonfile": "^6.1.0",
+    "openweather-api-node": "^2.0.0",
+    "ora": "^6.1.2",
+    "picocolors": "^1.0.0",
+    "pluralize": "^8.0.0",
+    "terminal-link": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3",
+    "@types/inquirer-autocomplete-prompt": "^3.0.0",
+    "@types/jsonfile": "^6.1.1",
+    "@types/pluralize": "^0.0.29",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "eslint": "^8.33.0",
+    "tsx": "^3.12.2",
+    "typescript": "^4.9.5"
+  },
+  "homepage": "https://github.com/jschuur/localtime-cli#readme",
+  "bugs": {
+    "url": "https://github.com/jschuur/localtime-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jschuur/localtime-cli.git"
+  }
+}
