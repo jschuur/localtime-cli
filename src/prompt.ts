@@ -19,7 +19,7 @@ let autoCompleteEntries: AutoCompleteEntry[] = [];
 function buildLocationList(options: DefaultCmdOptions) {
   const locations: TimeZoneLocation[] = [];
 
-  if (options.timezone)
+  if (options.timezone || options.all || options.allMin)
     locations.push(
       ...Object.keys(CountryTimezones.getAllTimezones()).map(
         (tz) =>
@@ -31,7 +31,7 @@ function buildLocationList(options: DefaultCmdOptions) {
       )
     );
 
-  if (options.country)
+  if (options.country || options.all || options.allMin)
     locations.push(
       ...Object.values(CountryTimezones.getAllCountries() as Country[]).flatMap((country) =>
         country.timezones.map(
@@ -46,9 +46,9 @@ function buildLocationList(options: DefaultCmdOptions) {
       )
     );
 
-  if (options.city || options.cityAll)
+  if (options.city || options.cityAll || options.all || options.allMin)
     locations.push(
-      ...(options.cityAll
+      ...(options.cityAll || options.all
         ? CityTimezones.cityMapping
         : CityTimezones.cityMapping.filter((c) => c.pop >= MIN_CITY_POPULATION)
       ).map(

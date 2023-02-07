@@ -30,6 +30,8 @@ program
   .option('-c --country', 'use country names', false)
   .option('-y --city', `use city names, population >= ${numberFormat(MIN_CITY_POPULATION)}`, false)
   .option('-Y --city-all', 'use all city names', false)
+  .option('-a --all-min', 'use all location types (with minimum city population)', false)
+  .option('-A --all', 'use all location types (no city population minimum)', false)
   .option('-w --weather', 'include local weather (via OpenWeather API)', false)
   .action(command);
 

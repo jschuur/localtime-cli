@@ -4,6 +4,8 @@ export interface DefaultCmdOptions {
   city?: boolean;
   cityAll?: boolean;
   weather?: boolean;
+  all?: boolean;
+  allMin?: boolean;
 }
 
 export interface TimeZoneLocation {

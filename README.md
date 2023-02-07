@@ -31,6 +31,8 @@ Show full options with `localtime --help`
 - `-c` `--country` use [country names](https://github.com/manuelmhtr/countries-and-timezones) (default: false)
 - `-y` `--city` use [city names](https://github.com/kevinroberts/city-timezones) with a population >= 250,000 (default: false)
 - `-Y` `--city-all` use all city names (default: false)
+- `-a` `--all-min`, use all location types (with minimum city population)
+- `-A` `--all` use all location types (no city population minimum)
 - `-w` `--weather` include local weather (default: false)
 
 Thus `localtime -c -y` would search time zone, country and larger city names and `localtime --no-timezone -Y` would search just through all city names, since time zones are always used unless explicitly excluded.
