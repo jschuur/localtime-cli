@@ -45,13 +45,15 @@
     "ora": "^6.1.2",
     "picocolors": "^1.0.0",
     "pluralize": "^8.0.0",
-    "terminal-link": "^3.0.0"
+    "terminal-link": "^3.0.0",
+    "update-notifier": "^6.0.2"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
     "@types/inquirer-autocomplete-prompt": "^3.0.0",
     "@types/jsonfile": "^6.1.1",
     "@types/pluralize": "^0.0.29",
+    "@types/update-notifier": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "eslint": "^8.33.0",

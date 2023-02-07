@@ -53,7 +53,7 @@ export function showTime(location: TimeZoneLocation) {
   console.log(
     `In ${pc.cyan(type === 'city' ? name : timezone)} it is currently ${pc.green(
       time
-    )}, ${timePeriodOfDay(timezone)}.`
+    )} ${timePeriodOfDay(timezone)}.`
   );
 }
 

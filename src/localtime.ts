@@ -6,6 +6,7 @@ import url from 'url';
 import { program } from 'commander';
 import 'dotenv/config';
 import jsonfile from 'jsonfile';
+import updateNotifier from 'update-notifier';
 
 import { MIN_CITY_POPULATION } from './prompt.js';
 
@@ -15,6 +16,8 @@ import { numberFormat } from './util.js';
 const packageJson = jsonfile.readFileSync(
   path.join(url.fileURLToPath(new URL('.', import.meta.url)), '../package.json')
 );
+
+updateNotifier({ pkg: packageJson }).notify();
 
 program
   .name('localtime')
