@@ -50,7 +50,7 @@ export async function showWeather(location: TimeZoneLocation, openWeatherApiKey?
         spinner.stop();
 
         console.log(
-          `Local weather: ${pc.green(weather.temp.cur)}\u00B0C with ${
+          `Local weather: ${pc.green(weather.temp.cur)} \u00B0C with ${
             weather.description
           }. (${pc.blue(
             link(

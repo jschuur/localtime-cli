@@ -8,6 +8,7 @@ export interface DefaultCmdOptions {
   allMin?: boolean;
   openweatherApiKey?: string;
   saveOpenweatherApiKey?: string;
+  last?: boolean;
 }
 
 export interface TimeZoneLocation {

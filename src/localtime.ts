@@ -47,6 +47,7 @@ program
     '-O --save-openweather-api-key <key>',
     'specify and save OpenWeather API key for future use'
   )
+  .option('-l --last', 'reuse last location used', false)
   .action(command);
 
 program.parse();
