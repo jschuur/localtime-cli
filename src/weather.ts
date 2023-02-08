@@ -3,14 +3,27 @@ import ora from 'ora';
 import pc from 'picocolors';
 import link from 'terminal-link';
 
-import { TimeZoneLocation } from './types.js';
+import { DefaultCmdOptions, TimeZoneLocation } from './types.js';
 import { openWeatherMapUrlByCoordinates } from './util.js';
 
-async function getWeather(city: string) {
+export function resolveOpenWeatherApiKey(options: DefaultCmdOptions) {
+  if (options.saveOpenweatherApiKey)
+    global?.config.set('openWeatherApiKey', options.saveOpenweatherApiKey);
+
+  return (
+    options.openweatherApiKey ||
+    options.saveOpenweatherApiKey ||
+    process.env.OPEN_WEATHER_API_KEY ||
+    (global?.config.get('openWeatherApiKey') as string) ||
+    undefined
+  );
+}
+
+async function getWeather(city: string, openWeatherApiKey: string) {
   /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
   // @ts-ignore
   const weatherApi = new OpenWeatherAPI({
-    key: process.env.OPENWEATHER_API_KEY,
+    key: openWeatherApiKey,
     locationName: city,
     units: 'metric',
   });
@@ -23,7 +36,7 @@ async function getWeather(city: string) {
   return { weather, location };
 }
 
-export async function showWeather(location: TimeZoneLocation) {
+export async function showWeather(location: TimeZoneLocation, openWeatherApiKey?: string) {
   const { type, name: city } = location;
 
   console.log();
@@ -32,8 +45,8 @@ export async function showWeather(location: TimeZoneLocation) {
 
   try {
     if (type === 'city') {
-      if (process.env.OPENWEATHER_API_KEY) {
-        const { weather, location } = await getWeather(city);
+      if (openWeatherApiKey) {
+        const { weather, location } = await getWeather(city, openWeatherApiKey);
         spinner.stop();
 
         console.log(
@@ -50,7 +63,9 @@ export async function showWeather(location: TimeZoneLocation) {
         spinner.warn(
           `To include local weather, set the ${pc.green(
             'OPENWEATHER_API_KEY'
-          )} environment variable: ${pc.dim('OPENWEATHER_API_KEY="abc123" localtime -y -w')})`
+          )} environment variable or use '-o': ${pc.dim(
+            'localtime -y -w -o abc123'
+          )}. -O will save the key for future use.`
         );
     } else spinner.warn(`Weather information is only available for cities. Add cities with '-y'.`);
   } catch (error) {

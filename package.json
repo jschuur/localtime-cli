@@ -36,6 +36,7 @@
     "@vvo/tzdb": "^6.93.0",
     "city-timezones": "^1.2.1",
     "commander": "^10.0.0",
+    "conf": "^11.0.1",
     "countries-and-timezones": "^3.4.1",
     "dotenv": "^16.0.3",
     "inquirer": "^9.1.4",

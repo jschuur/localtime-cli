@@ -4,6 +4,7 @@ import path from 'path';
 import url from 'url';
 
 import { program } from 'commander';
+import Conf from 'conf';
 import 'dotenv/config';
 import jsonfile from 'jsonfile';
 import updateNotifier from 'update-notifier';
@@ -19,6 +20,14 @@ const packageJson = jsonfile.readFileSync(
 
 updateNotifier({ pkg: packageJson }).notify();
 
+declare global {
+  // eslint-disable-next-line no-var
+  var config: Conf;
+}
+
+const config = new Conf({ projectName: 'localtime-cli' });
+global.config = config;
+
 program
   .name('localtime')
   .description('Show the current time/weather in a given timezone/country/city')
@@ -33,6 +42,11 @@ program
   .option('-a --all-min', 'use all location types (with minimum city population)', false)
   .option('-A --all', 'use all location types (no city population minimum)', false)
   .option('-w --weather', 'include local weather (via OpenWeather API)', false)
+  .option('-o --openweather-api-key <key>', 'specify OpenWeather API key')
+  .option(
+    '-O --save-openweather-api-key <key>',
+    'specify and save OpenWeather API key for future use'
+  )
   .action(command);
 
 program.parse();

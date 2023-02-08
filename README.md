@@ -34,15 +34,23 @@ Show full options with `localtime --help`
 - `-a` `--all-min`, use all location types (with minimum city population)
 - `-A` `--all` use all location types (no city population minimum)
 - `-w` `--weather` include local weather (default: false)
+- `-o` `--openweather-api-key <key>` specify OpenWeather API key
+- `-o` `--save-openweather-api-key <key>` specify and save OpenWeather API key for future use
 
 Thus `localtime -c -y` would search time zone, country and larger city names and `localtime --no-timezone -Y` would search just through all city names, since time zones are always used unless explicitly excluded.
 
-Weather info works for city selections and requires a [free OpenWeather API key](https://openweathermap.org/api) set via the `OPENWEATHER_API_KEY` environment variable.
+#### Weather
+
+Weather info works for city selections and requires a [free OpenWeather API key](https://openweathermap.org/api) provided via the `-o` option to use it once or `-O` to save it for future use without needing to provide it as an option again.
 
 Example:
 
 ```
-OPENWEATHER_API_KEY='abc123' localtime -y -w
+localtime -y -w -O abc123
 ```
+
+In subsequent uses, you can then just run `localtime -y -w`.
+
+You can also set it via the `OPENWEATHER_API_KEY` environment variable.
 
 \- [Joost Schuur](https://joostschuur.com) ([@joostschuur](https://twitter.com/joostschuur))
