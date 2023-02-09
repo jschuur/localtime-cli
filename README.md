@@ -37,6 +37,7 @@ Show full options with `localtime --help`
 - `-o` `--openweather-api-key <key>` specify OpenWeather API key
 - `-o` `--save-openweather-api-key <key>` specify and save OpenWeather API key for future use
 - `-l` `--last` bypass location search and reuse last location used
+- `-i`, `--imperial` use imperial units (Fahrenheit) (default: metric)
 
 Thus `localtime -c -y` would search time zone, country and larger city names and `localtime --no-timezone -Y` would search just through all city names, since time zones are always used unless explicitly excluded.
 

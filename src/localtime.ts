@@ -49,6 +49,7 @@ program
   )
   .option('-l --last', 'reuse last location used', false)
   .option('-k --skip-last-used-sort', "don't sort last used location to top", false)
+  .option('-i --imperial', 'use imperial units (.e.g. fahrenheit)', false)
   .action(command);
 
 program.parse();

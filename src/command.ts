@@ -35,8 +35,9 @@ export default async function command(options: DefaultCmdOptions) {
 
   if (location) {
     showTime(location);
+    const measurement = options.imperial ? 'imperial' : 'metric';
 
-    if (options.weather) await showWeather(location, openWeatherApiKey);
+    if (options.weather) await showWeather(location, openWeatherApiKey, measurement);
 
     showMoreDetails(location);
 

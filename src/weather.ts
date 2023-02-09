@@ -3,7 +3,7 @@ import ora from 'ora';
 import pc from 'picocolors';
 import link from 'terminal-link';
 
-import { DefaultCmdOptions, TimeZoneLocation } from './types.js';
+import { DefaultCmdOptions, TimeZoneLocation, UnitMeasurement } from './types.js';
 import { openWeatherMapUrlByCoordinates } from './util.js';
 import emojiWeather from './weatherEmoji.js';
 
@@ -20,13 +20,17 @@ export function resolveOpenWeatherApiKey(options: DefaultCmdOptions) {
   );
 }
 
-async function getWeather(city: string, openWeatherApiKey: string) {
+async function getWeather(
+  city: string,
+  openWeatherApiKey: string | undefined,
+  measurement: UnitMeasurement
+) {
   /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
   // @ts-ignore
   const weatherApi = new OpenWeatherAPI({
     key: openWeatherApiKey,
     locationName: city,
-    units: 'metric',
+    units: measurement,
   });
 
   const { weather, lat, lon } = await weatherApi.getCurrent();
@@ -38,7 +42,28 @@ async function getWeather(city: string, openWeatherApiKey: string) {
   return { weather, location, emoji };
 }
 
-export async function showWeather(location: TimeZoneLocation, openWeatherApiKey?: string) {
+async function weatherDetails(
+  city: string,
+  openWeatherApiKey: string,
+  measurement: UnitMeasurement
+) {
+  const { weather, location, emoji } = await getWeather(city, openWeatherApiKey, measurement);
+
+  return `Local weather: ${pc.green(weather.temp.cur)} \u00B0${
+    measurement === 'metric' ? 'C' : 'F'
+  } with ${weather.description}${emoji ? ` ${emoji}` : '.'} (${pc.blue(
+    link(
+      `${location.name}, ${location.country}`,
+      openWeatherMapUrlByCoordinates(location.lat, location.lon)
+    )
+  )})`;
+}
+
+export async function showWeather(
+  location: TimeZoneLocation,
+  openWeatherApiKey: string | undefined,
+  measurement: UnitMeasurement
+) {
   const { type, name: city } = location;
 
   console.log();
@@ -48,19 +73,10 @@ export async function showWeather(location: TimeZoneLocation, openWeatherApiKey?
   try {
     if (type === 'city') {
       if (openWeatherApiKey) {
-        const { weather, location, emoji } = await getWeather(city, openWeatherApiKey);
+        const weatherText = await weatherDetails(city, openWeatherApiKey, measurement);
         spinner.stop();
 
-        console.log(
-          `Local weather: ${pc.green(weather.temp.cur)} \u00B0C with ${weather.description}${
-            emoji ? ` ${emoji}` : '.'
-          } (${pc.blue(
-            link(
-              `${location.name}, ${location.country}`,
-              openWeatherMapUrlByCoordinates(location.lat, location.lon)
-            )
-          )})`
-        );
+        console.log(weatherText);
       } else
         spinner.warn(
           `To include local weather, set the ${pc.green(
