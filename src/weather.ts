@@ -5,6 +5,7 @@ import link from 'terminal-link';
 
 import { DefaultCmdOptions, TimeZoneLocation } from './types.js';
 import { openWeatherMapUrlByCoordinates } from './util.js';
+import emojiWeather from './weatherEmoji.js';
 
 export function resolveOpenWeatherApiKey(options: DefaultCmdOptions) {
   if (options.saveOpenweatherApiKey)
@@ -32,8 +33,9 @@ async function getWeather(city: string, openWeatherApiKey: string) {
 
   weatherApi.setLocationByCoordinates(lat, lon);
   const location = await weatherApi.getLocation();
+  const emoji = emojiWeather(weather.description);
 
-  return { weather, location };
+  return { weather, location, emoji };
 }
 
 export async function showWeather(location: TimeZoneLocation, openWeatherApiKey?: string) {
@@ -46,13 +48,13 @@ export async function showWeather(location: TimeZoneLocation, openWeatherApiKey?
   try {
     if (type === 'city') {
       if (openWeatherApiKey) {
-        const { weather, location } = await getWeather(city, openWeatherApiKey);
+        const { weather, location, emoji } = await getWeather(city, openWeatherApiKey);
         spinner.stop();
 
         console.log(
-          `Local weather: ${pc.green(weather.temp.cur)} \u00B0C with ${
-            weather.description
-          }. (${pc.blue(
+          `Local weather: ${pc.green(weather.temp.cur)} \u00B0C with ${weather.description}${
+            emoji ? ` ${emoji}` : '.'
+          } (${pc.blue(
             link(
               `${location.name}, ${location.country}`,
               openWeatherMapUrlByCoordinates(location.lat, location.lon)

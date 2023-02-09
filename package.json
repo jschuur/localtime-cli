@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "dev": "tsc -w",
     "localtime": "tsx ./src/localtime.ts",
     "prepublishOnly": "pnpm run build"
   },
