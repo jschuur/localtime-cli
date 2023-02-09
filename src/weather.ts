@@ -3,7 +3,7 @@ import ora from 'ora';
 import pc from 'picocolors';
 import link from 'terminal-link';
 
-import { DefaultCmdOptions, TimeZoneLocation, UnitMeasurement } from './types.js';
+import { DefaultCmdOptions, MeasurementUnit, TimeZoneLocation } from './types.js';
 import { openWeatherMapUrlByCoordinates } from './util.js';
 import emojiWeather from './weatherEmoji.js';
 
@@ -23,14 +23,14 @@ export function resolveOpenWeatherApiKey(options: DefaultCmdOptions) {
 async function getWeather(
   city: string,
   openWeatherApiKey: string | undefined,
-  measurement: UnitMeasurement
+  measurementUnit: MeasurementUnit
 ) {
   /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
   // @ts-ignore
   const weatherApi = new OpenWeatherAPI({
     key: openWeatherApiKey,
     locationName: city,
-    units: measurement,
+    units: measurementUnit,
   });
 
   const { weather, lat, lon } = await weatherApi.getCurrent();
@@ -45,24 +45,28 @@ async function getWeather(
 async function weatherDetails(
   city: string,
   openWeatherApiKey: string,
-  measurement: UnitMeasurement
+  measurementUnit: MeasurementUnit
 ) {
-  const { weather, location, emoji } = await getWeather(city, openWeatherApiKey, measurement);
+  const { weather, location, emoji } = await getWeather(city, openWeatherApiKey, measurementUnit);
 
-  return `Local weather: ${pc.green(weather.temp.cur)} \u00B0${
-    measurement === 'metric' ? 'C' : 'F'
-  } with ${weather.description}${emoji ? ` ${emoji}` : '.'} (${pc.blue(
+  const temperature = pc.green(
+    `${weather.temp.cur} \u00B0${measurementUnit === 'metric' ? 'C' : 'F'}`
+  );
+  const condition = `${weather.description}${emoji ? ` ${emoji}` : '.'}`;
+  const locationLink = pc.blue(
     link(
       `${location.name}, ${location.country}`,
       openWeatherMapUrlByCoordinates(location.lat, location.lon)
     )
-  )})`;
+  );
+
+  return `Local weather: ${temperature} with ${condition} (${locationLink})})`;
 }
 
 export async function showWeather(
   location: TimeZoneLocation,
   openWeatherApiKey: string | undefined,
-  measurement: UnitMeasurement
+  measurementUnit: MeasurementUnit
 ) {
   const { type, name: city } = location;
 
@@ -73,7 +77,7 @@ export async function showWeather(
   try {
     if (type === 'city') {
       if (openWeatherApiKey) {
-        const weatherText = await weatherDetails(city, openWeatherApiKey, measurement);
+        const weatherText = await weatherDetails(city, openWeatherApiKey, measurementUnit);
         spinner.stop();
 
         console.log(weatherText);

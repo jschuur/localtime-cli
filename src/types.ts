@@ -10,6 +10,7 @@ export interface DefaultCmdOptions {
   saveOpenweatherApiKey?: string;
   last?: boolean;
   skipLastUsedSort?: boolean;
+  metric?: boolean;
   imperial?: boolean;
 }
 
@@ -25,4 +26,4 @@ export interface AutoCompleteEntry {
   value: TimeZoneLocation;
 }
 
-export type UnitMeasurement = 'metric' | 'imperial';
+export type MeasurementUnit = 'metric' | 'imperial';

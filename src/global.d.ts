@@ -3,6 +3,7 @@ declare module 'countries-and-timezones';
 
 // via https://github.com/manuelmhtr/countries-and-timezones.
 // Need to fix TypeScript implementation to avoid needing to copy this in.
+/* cspell:disable */
 declare const countries: {
   AD: 'Andorra';
   AE: 'United Arab Emirates';

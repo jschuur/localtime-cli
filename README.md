@@ -37,7 +37,8 @@ Show full options with `localtime --help`
 - `-o` `--openweather-api-key <key>` specify OpenWeather API key
 - `-o` `--save-openweather-api-key <key>` specify and save OpenWeather API key for future use
 - `-l` `--last` bypass location search and reuse last location used
-- `-i`, `--imperial` use imperial units (Fahrenheit) (default: metric)
+- `-C` `--metric`, 'use metric units (celsius)
+- `-F` `--imperial`, 'use imperial units (fahrenheit)
 
 Thus `localtime -c -y` would search time zone, country and larger city names and `localtime --no-timezone -Y` would search just through all city names, since time zones are always used unless explicitly excluded.
 
@@ -58,5 +59,7 @@ localtime -y -w -O abc123
 In subsequent uses, you can then just run `localtime -y -w`.
 
 You can also set it via the `OPENWEATHER_API_KEY` environment variable.
+
+Initially, the metric system will be used and weather temperatures will be in celsius. Subsequent invocations will reuse the previously specified unit of measurement, unless a new one is selected via command line options.
 
 \- [Joost Schuur](https://joostschuur.com) ([@joostschuur](https://twitter.com/joostschuur))

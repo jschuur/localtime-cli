@@ -3,6 +3,7 @@ import pc from 'picocolors';
 import { promptForTimezone } from './prompt.js';
 import { showMoreDetails, showTime } from './time.js';
 import { DefaultCmdOptions, TimeZoneLocation } from './types.js';
+import { getMeasurementUnit } from './util.js';
 import { resolveOpenWeatherApiKey, showWeather } from './weather.js';
 
 async function getLocation(options: DefaultCmdOptions) {
@@ -34,10 +35,10 @@ export default async function command(options: DefaultCmdOptions) {
   const openWeatherApiKey = resolveOpenWeatherApiKey(options);
 
   if (location) {
-    showTime(location);
-    const measurement = options.imperial ? 'imperial' : 'metric';
+    const measurementUnit = getMeasurementUnit(options);
 
-    if (options.weather) await showWeather(location, openWeatherApiKey, measurement);
+    showTime(location);
+    if (options.weather) await showWeather(location, openWeatherApiKey, measurementUnit);
 
     showMoreDetails(location);
 
