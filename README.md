@@ -40,6 +40,8 @@ Show full options with `localtime --help`
 
 Thus `localtime -c -y` would search time zone, country and larger city names and `localtime --no-timezone -Y` would search just through all city names, since time zones are always used unless explicitly excluded.
 
+The last previously used location will be sorted to the top of the list as the default, first option unless `--skip-last-used-sort` is used.
+
 #### Weather
 
 Weather info works for city selections and requires a [free OpenWeather API key](https://openweathermap.org/api) provided via the `-o` option to use it once or `-O` to save it for future use without needing to provide it as an option again.

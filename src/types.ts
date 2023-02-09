@@ -9,12 +9,14 @@ export interface DefaultCmdOptions {
   openweatherApiKey?: string;
   saveOpenweatherApiKey?: string;
   last?: boolean;
+  skipLastUsedSort?: boolean;
 }
 
 export interface TimeZoneLocation {
   name: string;
   timezone: string;
   type: 'timezone' | 'country' | 'city';
+  lastUsed?: boolean;
 }
 
 export interface AutoCompleteEntry {

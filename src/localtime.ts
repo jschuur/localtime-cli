@@ -48,6 +48,7 @@ program
     'specify and save OpenWeather API key for future use'
   )
   .option('-l --last', 'reuse last location used', false)
+  .option('-k --skip-last-used-sort', "don't sort last used location to top", false)
   .action(command);
 
 program.parse();

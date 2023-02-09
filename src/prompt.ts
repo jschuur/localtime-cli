@@ -18,6 +18,7 @@ let autoCompleteEntries: AutoCompleteEntry[] = [];
 // list of locations to choose from based on CLI options
 function buildLocationList(options: DefaultCmdOptions) {
   const locations: TimeZoneLocation[] = [];
+  const lastLocation = global.config.get('lastLocation') as TimeZoneLocation;
 
   if (options.timezone || options.all || options.allMin)
     locations.push(
@@ -56,6 +57,15 @@ function buildLocationList(options: DefaultCmdOptions) {
       )
     );
 
+  // add last location to the top of the list
+  if (lastLocation && !options.skipLastUsedSort) {
+    const lastLocationIndex = locations.findIndex((l) => l.name === lastLocation.name);
+
+    if (lastLocationIndex !== -1) locations.splice(lastLocationIndex, 1);
+    lastLocation.lastUsed = true;
+    locations.unshift(lastLocation);
+  }
+
   return locations;
 }
 
@@ -73,7 +83,12 @@ function locationScope(options: DefaultCmdOptions) {
 
 async function runPrompt(locations: TimeZoneLocation[], options: DefaultCmdOptions) {
   const scope = locationScope(options);
-  autoCompleteEntries = locations.map((l) => ({ name: l.name, value: l }));
+
+  autoCompleteEntries = locations.map((l) => ({
+    name: l.lastUsed ? `${l.name} ${pc.dim('(last used)')}` : l.name,
+    short: l.name,
+    value: l,
+  }));
 
   return inquirer.prompt([
     {
