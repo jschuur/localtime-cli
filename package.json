@@ -1,6 +1,6 @@
 {
   "name": "localtime-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Command-line tool to look up the local time (and weather) for time zones, countries and cities with auto-completion.",
   "main": "dist/localtime.js",
   "type": "module",

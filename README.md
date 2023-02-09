@@ -1,4 +1,4 @@
-# Localtime CLI
+# Local time and weather command line tool
 
 Command-line tool to look up the local time (and weather) for time zones, countries and cities with auto-completion.
 
@@ -41,7 +41,9 @@ Show full options with `localtime --help`
 
 Thus `localtime -c -y` would search time zone, country and larger city names and `localtime --no-timezone -Y` would search just through all city names, since time zones are always used unless explicitly excluded.
 
-The last previously used location will be sorted to the top of the list as the default, first option unless `--skip-last-used-sort` is used.
+Multiple single letter options [can be combined](https://www.npmjs.com/package/commander#common-option-types-boolean-and-value) too: `localtime -cy`.
+
+The last previously used location will be sorted to the top of the list unless `--skip-last-used-sort` is used.
 
 #### Weather
 
