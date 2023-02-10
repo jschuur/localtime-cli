@@ -60,7 +60,7 @@ async function weatherDetails(
     )
   );
 
-  return `Local weather: ${temperature} with ${condition} (${locationLink})})`;
+  return `Local weather: ${temperature} with ${condition} (${locationLink})`;
 }
 
 export async function showWeather(
