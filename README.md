@@ -35,7 +35,7 @@ Show full options with `localtime --help`
 - `-A` `--all` use all location types (no city population minimum)
 - `-w` `--weather` include local weather
 - `-o` `--openweather-api-key <key>` specify OpenWeather API key
-- `-o` `--save-openweather-api-key <key>` specify and save OpenWeather API key for future use
+- `-O` `--save-openweather-api-key <key>` specify and save OpenWeather API key for future use
 - `-l` `--last` bypass location search and reuse last location used
 - `-C` `--metric`, use metric units (celsius)
 - `-F` `--imperial`, use imperial units (fahrenheit)
